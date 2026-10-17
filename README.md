@@ -10,7 +10,7 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
 > **Official Open-Source Research Artifact & Replication Package**  
-> **Target Manuscript:** [PAPER.md](PAPER.md) | **Peer Review Rebuttal:** [RESPONSE_TO_REVIEWERS.md](RESPONSE_TO_REVIEWERS.md)  
+> **Status:** Under Review at *IEEE Transactions on Software Engineering* | **Peer Review Rebuttal:** [RESPONSE_TO_REVIEWERS.md](RESPONSE_TO_REVIEWERS.md)  
 > **Authors:** **Umer Tanveer** $^{1,*}$ ([ORCID: 0009-0004-8219-913X](https://orcid.org/0009-0004-8219-913X)), **Hashim Ali** $^{1}$ ([ORCID: 0000-0002-4512-8821](https://orcid.org/0000-0002-4512-8821)), **Raja Sarath Kumar Boddu** $^{2}$ ([ORCID: 0000-0003-1284-9041](https://orcid.org/0000-0003-1284-9041))  
 > $^{1}$ Department of Computer Science & Software Engineering, Air University, Islamabad, Pakistan  
 > $^{2}$ Department of Information Technology, Bapatla Engineering College, Bapatla, Andhra Pradesh, India  
@@ -318,8 +318,9 @@ neuro_symbolic_re/
 ├── promise_sbert.npy                   # Pre-computed SBERT embeddings for PROMISE NFR
 ├── ablation_study_results.json         # Serialized 5-stage ablation study metrics
 ├── all_classifiers_30_split_results.json # Full Monte Carlo 30-split evaluation distribution
-├── PAPER.md                            # Complete Category-W research manuscript
 ├── RESPONSE_TO_REVIEWERS.md            # Point-by-point formal peer-review rebuttal document
+├── requirements.txt                    # Explicit Python dependencies
+├── LICENSE                             # MIT Open Source License
 └── README.md                           # This repository documentation
 ```
 
@@ -341,7 +342,7 @@ source .venv/bin/activate
 .venv\Scripts\activate
 
 # Install required dependencies
-pip install numpy pandas scikit-learn sentence-transformers imbalanced-learn matplotlib seaborn
+pip install -r requirements.txt
 ```
 
 ### 2. Verify Synthetic Quality & Diversity Audit
