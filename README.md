@@ -381,8 +381,8 @@ neuro_symbolic_re/
 ### 1. Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/umertanveer/neuro-symbolic-requirements-classification.git
-cd neuro-symbolic-requirements-classification
+git clone https://github.com/umertanveer25/neuro-symbolic-re.git
+cd neuro-symbolic-re
 
 # Create and activate virtual environment
 python -m venv .venv
