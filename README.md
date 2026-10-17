@@ -88,8 +88,11 @@ While mathematically valid for continuous physical variables (e.g., sensor telem
 
 ## 🛠️ Methodological Architecture & Pipeline
 
-![Figure 1: End-to-End Architectural Workflow](figures/figure1_architecture_workflow.png)  
-*Figure 1: End-to-end architectural workflow of the proposed Explainable Neuro-Symbolic Data Augmentation and classification framework (Stages 1–4).*
+<p align="center">
+  <img src="figures/figure1_architecture_workflow.png" width="95%" alt="Figure 1: End-to-End Architectural Workflow">
+  <br>
+  <em><b>Figure 1:</b> End-to-end architectural workflow of the proposed Explainable Neuro-Symbolic Data Augmentation and classification framework (Stages 1–4).</em>
+</p>
 
 ```mermaid
 flowchart TD
@@ -267,32 +270,47 @@ To guarantee cross-dataset transferability, heterogeneous label spaces across in
 ## 🖼️ Publication Visual Gallery
 
 ### Figure 1: End-to-End Architectural Workflow Pipeline
-![Figure 1](figures/figure1_architecture_workflow.png)  
-*Figure 1: Full system architecture detailing the 4 operational stages: (1) Preprocessing and stratified partitioning, (2) Combinatorial EARS + ISO/IEC 25010 generative synthesis, (3) Asymmetric Dual-Space boundary cleaning, and (4) Hybrid feature fusion with margin-preserving inference.*
+<p align="center">
+  <img src="figures/figure1_architecture_workflow.png" width="95%" alt="Figure 1: End-to-End Architectural Workflow Pipeline">
+  <br>
+  <em><b>Figure 1:</b> Full system architecture detailing the 4 operational stages: (1) Preprocessing and stratified partitioning, (2) Combinatorial EARS + ISO/IEC 25010 generative synthesis, (3) Asymmetric Dual-Space boundary cleaning, and (4) Hybrid feature fusion with margin-preserving inference.</em>
+</p>
 
 ---
 
 ### Figure 2: Multi-Model Accuracy Comparison (Pure SMOTE-Tomek vs. Proposed)
-![Figure 2](figures/figure2_algorithm_comparison.png)  
-*Figure 2: Empirical accuracy comparison across 10 machine learning architectures on PROMISE NFR. The proposed Neuro-Symbolic framework establishes decisive victories across 10 out of 11 models over pure SMOTE-Tomek.*
+<p align="center">
+  <img src="figures/figure2_algorithm_comparison.png" width="95%" alt="Figure 2: Multi-Model Accuracy Comparison">
+  <br>
+  <em><b>Figure 2:</b> Empirical accuracy comparison across 10 machine learning architectures on PROMISE NFR. The proposed Neuro-Symbolic framework establishes decisive victories across 10 out of 11 models over pure SMOTE-Tomek.</em>
+</p>
 
 ---
 
 ### Figure 3: K-NN Neighborhood Degradation Trajectory ($k \in \{3, 5, 7\}$)
-![Figure 3](figures/figure3_knn_trajectory.png)  
-*Figure 3: Accuracy trajectory of $K$-Nearest Neighbor classifiers across neighborhood radii. Prior SMOTE implementations experience steep degradation ($-8.66\%$ in Barak Or, $-7.22\%$ in Ali et al.) due to artificial ghost vectors. The proposed framework maintains tight topological stability.*
+<p align="center">
+  <img src="figures/figure3_knn_trajectory.png" width="95%" alt="Figure 3: K-NN Neighborhood Degradation Trajectory">
+  <br>
+  <em><b>Figure 3:</b> Accuracy trajectory of $K$-Nearest Neighbor classifiers across neighborhood radii. Prior SMOTE implementations experience steep degradation ($-8.66\%$ in Barak Or, $-7.22\%$ in Ali et al.) due to artificial ghost vectors. The proposed framework maintains tight topological stability.</em>
+</p>
 
 ---
 
 ### Figure 4: Zero-Shot Transfer Generalization on FNFC ($N=7,034$)
-![Figure 4](figures/figure4_generalization_fnfc.png)  
-*Figure 4: Out-of-distribution transfer accuracy on the 7,034 industrial specifications of the FNFC benchmark. Continuous SMOTE suffers severe collapse on non-parametric Decision Trees ($51.44\%$), whereas the proposed framework prevents degradation ($85.73\%$, a $+34.29\%$ leap).*
+<p align="center">
+  <img src="figures/figure4_generalization_fnfc.png" width="95%" alt="Figure 4: Zero-Shot Transfer Generalization on FNFC">
+  <br>
+  <em><b>Figure 4:</b> Out-of-distribution transfer accuracy on the 7,034 industrial specifications of the FNFC benchmark. Continuous SMOTE suffers severe collapse on non-parametric Decision Trees ($51.44\%$), whereas the proposed framework prevents degradation ($85.73\%$, a $+34.29\%$ leap).</em>
+</p>
 
 ---
 
 ### Figure 5: Class-Wise F1-Score Breakdown across 12 Requirements Types
-![Figure 5](figures/figure5_classwise_f1.png)  
-*Figure 5: Granular class-wise F1-score comparison across all 12 categories. Extreme minority classes exhibit dramatic gains under EARS-ISO: Portability (`PO`, $N=12$) leaps from $12\%$ to $58\%$ ($+46\%$), and Legal (`L`, $N=13$) leaps from $18\%$ to $60\%$ ($+42\%$).*
+<p align="center">
+  <img src="figures/figure5_classwise_f1.png" width="95%" alt="Figure 5: Class-Wise F1-Score Breakdown">
+  <br>
+  <em><b>Figure 5:</b> Granular class-wise F1-score comparison across all 12 categories. Extreme minority classes exhibit dramatic gains under EARS-ISO: Portability (`PO`, $N=12$) leaps from $12\%$ to $58\%$ ($+46\%$), and Legal (`L`, $N=13$) leaps from $18\%$ to $60\%$ ($+42\%$).</em>
+</p>
 
 ---
 
