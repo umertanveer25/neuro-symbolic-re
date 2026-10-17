@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "Tanveer"
+    given-names: "Umer"
+    orcid: "https://orcid.org/0009-0004-8219-913X"
+    affiliation: "Air University, Islamabad, Pakistan"
+    email: "umer.tanveer@mail.au.edu.pk"
+  - family-names: "Ali"
+    given-names: "Hashim"
+    orcid: "https://orcid.org/0000-0002-4512-8821"
+    affiliation: "Air University, Islamabad, Pakistan"
+  - family-names: "Boddu"
+    given-names: "Raja Sarath Kumar"
+    orcid: "https://orcid.org/0000-0003-1284-9041"
+    affiliation: "Bapatla Engineering College, Bapatla, India"
+title: "Explainable Neuro-Symbolic Data Augmentation with ISO/IEC 25010 Quality-Constrained Filtering for Imbalanced Software Requirements Classification"
+version: 1.0.0
+date-released: 2026-10-17
+url: "https://github.com/umertanveer/neuro-symbolic-requirements-classification"
+license: "MIT"
+keywords:
+  - "requirements-engineering"
+  - "neuro-symbolic-ai"
+  - "iso-iec-25010"
+  - "ears-syntax"
+  - "sentence-bert"
+  - "class-imbalance"

@@ -300,25 +300,44 @@ To guarantee cross-dataset transferability, heterogeneous label spaces across in
 
 ```text
 neuro_symbolic_re/
+├── .github/
+│   └── workflows/ci.yml                # Automated GitHub Actions continuous integration
 ├── data/
+│   ├── __init__.py                     # Package export
 │   └── dataset_loader.py               # Dataset ingestion & formal ISO 25010 Clause 4.2 mapping
 ├── symbolic/
+│   ├── __init__.py                     # Package export
 │   ├── ears_syntax.py                  # EARS template grammar validator (Ubiquitous, Event, Unwanted)
 │   └── iso25010_rules.py               # ISO/IEC 25010 taxonomy & IEEE 830 modal regular expressions
 ├── neuro/
+│   ├── __init__.py                     # Package export
 │   ├── generator.py                    # Combinatorial EARS-ISO generator with pairwise Jaccard guard
 │   └── boundary_cleaner.py             # Asymmetric Dual-Space Tomek Cleaner (locks 100% human anchors)
 ├── evaluation/
+│   ├── __init__.py                     # Package export
 │   └── metrics.py                      # Multi-metric calculator (Macro/Weighted F1, MCC, Specificity, AUC)
 ├── diagnostics/
+│   ├── __init__.py                     # Package export
 │   ├── synthetic_quality_audit.py      # Quality auditor (EARS compliance, modal verbs, forbidden phrases)
 │   └── eda_synonym_baseline.py         # Comparative benchmark: Unconstrained WordNet EDA vs. EARS-ISO
+├── tests/                              # Automated Unit Test Suite
+│   ├── __init__.py
+│   ├── test_symbolic.py                # Tests EARS patterns, ISO 25010 rules, vague term rejection
+│   ├── test_generator.py               # Tests candidate synthesis, diversity guard, entropy
+│   ├── test_boundary_cleaner.py        # Tests 100% human point preservation guarantee
+│   └── test_metrics.py                 # Tests macro-averaged precision, recall, and F1 calculations
 ├── figures/                            # 300 DPI Publication-Grade Figures
 │   ├── figure1_architecture_workflow.png
 │   ├── figure2_algorithm_comparison.png
 │   ├── figure3_knn_trajectory.png
 │   ├── figure4_generalization_fnfc.png
 │   └── figure5_classwise_f1.png
+├── scripts/                            # Legacy & Utility Cache Scripts
+│   ├── cache_sbert_embeddings.py
+│   ├── cache_iso_sbert.py
+│   ├── check_baselines.py
+│   └── run_experiments.py
+├── main.py                             # Unified Executive CLI entrypoint
 ├── beat_all_algorithms.py              # Main benchmark: evaluates all 11 classifiers under 30 random splits
 ├── run_ablation_study.py               # 5-Stage component-wise ablation study (decouples alpha scaling)
 ├── generate_publication_figures.py     # Reproduces all 4 publication charts at 300 DPI
@@ -329,6 +348,9 @@ neuro_symbolic_re/
 ├── ablation_study_results.json         # Serialized 5-stage ablation study metrics
 ├── all_classifiers_30_split_results.json # Full Monte Carlo 30-split evaluation distribution
 ├── RESPONSE_TO_REVIEWERS.md            # Point-by-point formal peer-review rebuttal document
+├── CONTRIBUTING.md                     # Open-source developer guidelines
+├── CITATION.cff                        # Machine-readable GitHub citation metadata
+├── pyproject.toml                      # Modern PEP 518/621 package build configuration
 ├── requirements.txt                    # Explicit Python dependencies
 ├── LICENSE                             # MIT Open Source License
 └── README.md                           # This repository documentation
@@ -351,39 +373,36 @@ source .venv/bin/activate
 # Windows:
 .venv\Scripts\activate
 
-# Install required dependencies
+# Install required dependencies & package in editable mode
 pip install -r requirements.txt
+pip install -e .
 ```
 
-### 2. Verify Synthetic Quality & Diversity Audit
-Run the deterministic quality validator to confirm 100% EARS compliance, 100% IEEE 830 modal verb adherence, and 0.00% vague phrase violations:
+### 2. Run Automated Test Suite
+Verify that all symbolic grammar filters, diversity guards, and boundary cleaners pass unit testing:
 ```bash
-python diagnostics/synthetic_quality_audit.py
+python -m unittest discover tests
 ```
 
-### 3. Run the EDA Baseline Comparison
-Execute the comparative audit demonstrating that unconstrained synonym replacement causes severe semantic drift compared to EARS-ISO:
-```bash
-python diagnostics/eda_synonym_baseline.py
-```
+### 3. Unified Executive CLI (`main.py`)
+All benchmarking, auditing, and visual reproduction tasks can be executed via the unified CLI:
 
-### 4. Execute the 5-Stage Component-Wise Ablation Study
-Decouple early fusion feature scaling from symbolic augmentation across all 5 operational stages:
 ```bash
-python run_ablation_study.py
-```
+# 1. Run deterministic synthetic quality & diversity audit:
+python main.py audit
 
-### 5. Execute the Full 11-Model Benchmark
-Run the comprehensive benchmark evaluating all 11 classifiers across 30 Monte Carlo stratified splits:
-```bash
-python beat_all_algorithms.py
-```
+# 2. Run unconstrained WordNet EDA baseline comparison:
+python main.py eda
 
-### 6. Regenerate Publication Figures (300 DPI)
-```bash
-python generate_publication_figures.py
+# 3. Run 5-stage component-wise ablation study:
+python main.py ablate
+
+# 4. Run full 11-model 30-split Monte Carlo benchmark:
+python main.py benchmark
+
+# 5. Regenerate all 300 DPI publication figures:
+python main.py figures
 ```
-Output charts will be regenerated in the `figures/` directory.
 
 ---
 
