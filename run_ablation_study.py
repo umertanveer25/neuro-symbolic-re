@@ -57,7 +57,7 @@ def run_ablation(n_splits: int = 5, random_state: int = 42):
         'Naive Bayes': lambda: MultinomialNB(alpha=0.1)
     }
     
-    stages = ['Stage 1 (Raw)', 'Stage 2 (SMOTE-Tomek)', 'Stage 3 (EARS-ISO Only)', 'Stage 4 (Full Proposed)']
+    stages = ['Stage 1A (Raw Unscaled)', 'Stage 1B (Raw Scaled)', 'Stage 2 (SMOTE-Tomek)', 'Stage 3 (EARS-ISO Only)', 'Stage 4 (Full Proposed)']
     scores = {name: {s: [] for s in stages} for name in classifiers_def}
     
     for fold, (train_idx, test_idx) in enumerate(skf.split(texts, labels), 1):
@@ -70,13 +70,14 @@ def run_ablation(n_splits: int = 5, random_state: int = 42):
         te_sb = sbert_mat[test_idx]
         
         # -------------------------------------------------------------
-        # STAGE 1: RAW BASELINE (NO RESAMPLING)
+        # STAGE 1A: RAW BASELINE (UNSCALED alpha = 1.0, NO RESAMPLING)
         # -------------------------------------------------------------
         vec1 = TfidfVectorizer(max_features=1500, ngram_range=(1, 2), sublinear_tf=True, stop_words='english')
         X_tr_tfidf_1 = vec1.fit_transform(tr_t).toarray()
         X_te_tfidf_1 = vec1.transform(te_t).toarray()
-        X_tr_1 = np.hstack([normalize(tr_sb) * 1.6, normalize(X_tr_tfidf_1)])
-        X_te_1 = np.hstack([normalize(te_sb) * 1.6, normalize(X_te_tfidf_1)])
+        
+        X_tr_1A = np.hstack([normalize(tr_sb) * 1.0, normalize(X_tr_tfidf_1)])
+        X_te_1A = np.hstack([normalize(te_sb) * 1.0, normalize(X_te_tfidf_1)])
         
         for name, clf_fn in classifiers_def.items():
             clf = clf_fn()
@@ -84,17 +85,35 @@ def run_ablation(n_splits: int = 5, random_state: int = 42):
                 clf.fit(X_tr_tfidf_1, tr_l)
                 acc = (clf.predict(X_te_tfidf_1) == te_l).mean()
             else:
-                clf.fit(X_tr_1, tr_l)
-                acc = (clf.predict(X_te_1) == te_l).mean()
-            scores[name]['Stage 1 (Raw)'].append(acc)
+                clf.fit(X_tr_1A, tr_l)
+                acc = (clf.predict(X_te_1A) == te_l).mean()
+            scores[name]['Stage 1A (Raw Unscaled)'].append(acc)
             
-        print("  Stage 1 (Raw Baseline) evaluated.", flush=True)
+        print("  Stage 1A (Raw Unscaled alpha=1.0) evaluated.", flush=True)
+        
+        # -------------------------------------------------------------
+        # STAGE 1B: RAW BASELINE (CALIBRATED alpha = 1.6, NO RESAMPLING)
+        # -------------------------------------------------------------
+        X_tr_1B = np.hstack([normalize(tr_sb) * 1.6, normalize(X_tr_tfidf_1)])
+        X_te_1B = np.hstack([normalize(te_sb) * 1.6, normalize(X_te_tfidf_1)])
+        
+        for name, clf_fn in classifiers_def.items():
+            clf = clf_fn()
+            if name == 'Naive Bayes':
+                clf.fit(X_tr_tfidf_1, tr_l)
+                acc = (clf.predict(X_te_tfidf_1) == te_l).mean()
+            else:
+                clf.fit(X_tr_1B, tr_l)
+                acc = (clf.predict(X_te_1B) == te_l).mean()
+            scores[name]['Stage 1B (Raw Scaled)'].append(acc)
+            
+        print("  Stage 1B (Raw Scaled alpha=1.6) evaluated.", flush=True)
         
         # -------------------------------------------------------------
         # STAGE 2: CONTINUOUS SMOTE-TOMEK RESAMPLING (ALI ET AL.)
         # -------------------------------------------------------------
         smt = SMOTETomek(random_state=random_state)
-        X_tr_smt, y_tr_smt = smt.fit_resample(X_tr_1, tr_l)
+        X_tr_smt, y_tr_smt = smt.fit_resample(X_tr_1B, tr_l)
         
         for name, clf_fn in classifiers_def.items():
             clf = clf_fn()
@@ -105,7 +124,7 @@ def run_ablation(n_splits: int = 5, random_state: int = 42):
                 acc = (clf.predict(X_te_tfidf_1) == te_l).mean()
             else:
                 clf.fit(X_tr_smt, y_tr_smt)
-                acc = (clf.predict(X_te_1) == te_l).mean()
+                acc = (clf.predict(X_te_1B) == te_l).mean()
             scores[name]['Stage 2 (SMOTE-Tomek)'].append(acc)
             
         print("  Stage 2 (SMOTE-Tomek) evaluated.", flush=True)
@@ -182,24 +201,26 @@ def run_ablation(n_splits: int = 5, random_state: int = 42):
         
     # Summarize Ablation Results
     summary_table = []
-    print("\n" + "=" * 90, flush=True)
-    print(f"{'Classification Model':<22} | {'Stage 1 (Raw)':<14} | {'Stage 2 (SMOTE)':<15} | {'Stage 3 (EARS)':<15} | {'Stage 4 (Full)':<15}", flush=True)
-    print("=" * 90, flush=True)
+    print("\n" + "=" * 115, flush=True)
+    print(f"{'Classification Model':<20} | {'1A: Unscaled':<13} | {'1B: Scaled':<13} | {'2: SMOTE-Tomek':<15} | {'3: EARS-ISO':<14} | {'4: Full Proposed':<16}", flush=True)
+    print("=" * 115, flush=True)
     
     for name in classifiers_def:
-        m1 = np.mean(scores[name]['Stage 1 (Raw)']) * 100
+        m1a = np.mean(scores[name]['Stage 1A (Raw Unscaled)']) * 100
+        m1b = np.mean(scores[name]['Stage 1B (Raw Scaled)']) * 100
         m2 = np.mean(scores[name]['Stage 2 (SMOTE-Tomek)']) * 100
         m3 = np.mean(scores[name]['Stage 3 (EARS-ISO Only)']) * 100
         m4 = np.mean(scores[name]['Stage 4 (Full Proposed)']) * 100
-        print(f"{name:<22} | {m1:6.2f}%       | {m2:6.2f}%        | {m3:6.2f}%        | {m4:6.2f}%", flush=True)
+        print(f"{name:<20} | {m1a:6.2f}%       | {m1b:6.2f}%       | {m2:6.2f}%        | {m3:6.2f}%       | {m4:6.2f}%", flush=True)
         summary_table.append({
             'model': name,
-            'stage1_raw': round(m1, 2),
-            'stage2_smote': round(m2, 2),
-            'stage3_ears_only': round(m3, 2),
+            'stage1a_unscaled_raw': round(m1a, 2),
+            'stage1b_scaled_raw': round(m1b, 2),
+            'stage2_smote_tomek': round(m2, 2),
+            'stage3_ears_iso_only': round(m3, 2),
             'stage4_full_proposed': round(m4, 2)
         })
-    print("=" * 90, flush=True)
+    print("=" * 115, flush=True)
     
     # Save output json
     out_path = os.path.join(base_dir, 'ablation_study_results.json')

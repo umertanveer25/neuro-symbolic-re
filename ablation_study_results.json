@@ -1,44 +1,50 @@
 [
   {
     "model": "Linear SVM",
-    "stage1_raw": 79.25,
-    "stage2_smote": 79.67,
-    "stage3_ears_only": 79.57,
+    "stage1a_unscaled_raw": 80.7,
+    "stage1b_scaled_raw": 79.25,
+    "stage2_smote_tomek": 79.67,
+    "stage3_ears_iso_only": 79.57,
     "stage4_full_proposed": 79.77
   },
   {
     "model": "Logistic Regression",
-    "stage1_raw": 78.53,
-    "stage2_smote": 80.29,
-    "stage3_ears_only": 78.84,
+    "stage1a_unscaled_raw": 77.6,
+    "stage1b_scaled_raw": 78.53,
+    "stage2_smote_tomek": 80.29,
+    "stage3_ears_iso_only": 78.84,
     "stage4_full_proposed": 78.64
   },
   {
     "model": "KNN (k=5)",
-    "stage1_raw": 75.23,
-    "stage2_smote": 72.13,
-    "stage3_ears_only": 75.43,
+    "stage1a_unscaled_raw": 75.02,
+    "stage1b_scaled_raw": 75.23,
+    "stage2_smote_tomek": 72.13,
+    "stage3_ears_iso_only": 75.43,
     "stage4_full_proposed": 75.43
   },
   {
     "model": "Decision Tree",
-    "stage1_raw": 48.4,
-    "stage2_smote": 46.23,
-    "stage3_ears_only": 44.99,
-    "stage4_full_proposed": 44.99
+    "stage1a_unscaled_raw": 48.61,
+    "stage1b_scaled_raw": 48.61,
+    "stage2_smote_tomek": 45.71,
+    "stage3_ears_iso_only": 48.4,
+    "stage4_full_proposed": 48.4
   },
   {
     "model": "AdaBoost",
-    "stage1_raw": 46.75,
-    "stage2_smote": 25.28,
-    "stage3_ears_only": 46.34,
+    "stage1a_unscaled_raw": 46.75,
+    "stage1b_scaled_raw": 46.75,
+    "stage2_smote_tomek": 25.28,
+    "stage3_ears_iso_only": 46.34,
     "stage4_full_proposed": 46.34
   },
   {
     "model": "Naive Bayes",
-    "stage1_raw": 72.03,
-    "stage2_smote": 70.38,
-    "stage3_ears_only": 72.34,
+    "stage1a_unscaled_raw": 72.03,
+    "stage1b_scaled_raw": 72.03,
+    "stage2_smote_tomek": 70.38,
+    "stage3_ears_iso_only": 72.34,
     "stage4_full_proposed": 72.34
   }
 ]
