@@ -88,6 +88,9 @@ While mathematically valid for continuous physical variables (e.g., sensor telem
 
 ## 🛠️ Methodological Architecture & Pipeline
 
+![Figure 1: End-to-End Architectural Workflow](figures/figure1_architecture_workflow.png)  
+*Figure 1: End-to-end architectural workflow of the proposed Explainable Neuro-Symbolic Data Augmentation and classification framework (Stages 1–4).*
+
 ```mermaid
 flowchart TD
     subgraph Data_Preparation ["Stage 1: Ingestion & Stratified Splitting"]
@@ -263,6 +266,12 @@ To guarantee cross-dataset transferability, heterogeneous label spaces across in
 
 ## 🖼️ Publication Visual Gallery
 
+### Figure 1: End-to-End Architectural Workflow Pipeline
+![Figure 1](figures/figure1_architecture_workflow.png)  
+*Figure 1: Full system architecture detailing the 4 operational stages: (1) Preprocessing and stratified partitioning, (2) Combinatorial EARS + ISO/IEC 25010 generative synthesis, (3) Asymmetric Dual-Space boundary cleaning, and (4) Hybrid feature fusion with margin-preserving inference.*
+
+---
+
 ### Figure 2: Multi-Model Accuracy Comparison (Pure SMOTE-Tomek vs. Proposed)
 ![Figure 2](figures/figure2_algorithm_comparison.png)  
 *Figure 2: Empirical accuracy comparison across 10 machine learning architectures on PROMISE NFR. The proposed Neuro-Symbolic framework establishes decisive victories across 10 out of 11 models over pure SMOTE-Tomek.*
@@ -305,6 +314,7 @@ neuro_symbolic_re/
 │   ├── synthetic_quality_audit.py      # Quality auditor (EARS compliance, modal verbs, forbidden phrases)
 │   └── eda_synonym_baseline.py         # Comparative benchmark: Unconstrained WordNet EDA vs. EARS-ISO
 ├── figures/                            # 300 DPI Publication-Grade Figures
+│   ├── figure1_architecture_workflow.png
 │   ├── figure2_algorithm_comparison.png
 │   ├── figure3_knn_trajectory.png
 │   ├── figure4_generalization_fnfc.png
